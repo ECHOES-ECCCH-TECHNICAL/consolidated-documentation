@@ -54,6 +54,9 @@ sources:
     entrypoint: README.md
     include:
       - README.md
+    markdown_normalizations:
+      - blank_line_before_unordered_lists
+      - four_space_nested_unordered_lists
 
   - id: wp9-cloud-assessment-framework
     title: Assessment Framework

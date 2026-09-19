@@ -96,7 +96,10 @@ def load_sources(manifest_path: Path) -> list[Source]:
             raise CollectionError(f"Source {source_id} has an invalid 'include' list.")
 
         normalizations = entry.get("markdown_normalizations", [])
-        allowed_normalizations = {"blank_line_before_unordered_lists"}
+        allowed_normalizations = {
+            "blank_line_before_unordered_lists",
+            "four_space_nested_unordered_lists",
+        }
         if not isinstance(normalizations, list) or not all(
             isinstance(item, str) and item in allowed_normalizations for item in normalizations
         ):
@@ -190,6 +193,13 @@ def selected_files(source_root: Path, patterns: tuple[str, ...]) -> list[Path]:
 
 def normalise_markdown(content: str, normalizations: tuple[str, ...]) -> str:
     """Apply explicitly configured, source-specific Markdown normalizations."""
+    if "four_space_nested_unordered_lists" in normalizations:
+        nested_list_pattern = re.compile(r"^( {2})([-*+]\s+)")
+        content = "".join(
+            nested_list_pattern.sub(r"    \2", line)
+            for line in content.splitlines(keepends=True)
+        )
+
     if "blank_line_before_unordered_lists" not in normalizations:
         return content
 
