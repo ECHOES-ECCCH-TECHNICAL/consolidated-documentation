@@ -12,6 +12,7 @@ extra_css:
 
 theme:
   variant: modern
+  logo: generated/wp6/engineering-handbook/assets/logo.png
   language: en
   features:
     - navigation.sections
