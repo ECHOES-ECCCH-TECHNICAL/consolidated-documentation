@@ -35,6 +35,7 @@ sources:
     source_path: .
     target_path: hdto
     entrypoint: README.md
+    original_source_notice: true
     include:
       - README.md
       - html/**

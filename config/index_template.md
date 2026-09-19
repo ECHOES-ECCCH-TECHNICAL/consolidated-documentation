@@ -1,7 +1,10 @@
 # Consolidated Technical Documentation
 
-This portal consolidates the technical documentation maintained by various ECHOES technical
+This portal consolidates the technical documentation maintained by the ECHOES technical
 WPs in their various GitHub repositories.
+
+!!! warning
+    This portal is experimental and a work in progress. The content is generated from the original repositories and may not be complete or up to date. 
 
 Use the navigation or search to explore the available documentation:
 

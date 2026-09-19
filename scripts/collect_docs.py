@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import fnmatch
+from html import escape
 import json
 import re
 import shutil
@@ -36,9 +37,11 @@ class Source:
     branch: str
     source_path: str
     target_path: str
+    entrypoint: str
     include: tuple[str, ...]
     markdown_normalizations: tuple[str, ...]
     navigation: dict[str, Any] | None
+    original_source_notice: bool
 
 
 class CollectionError(Exception):
@@ -72,7 +75,15 @@ def load_sources(manifest_path: Path) -> list[Source]:
     sources: list[Source] = []
     seen_ids: set[str] = set()
     seen_targets: set[str] = set()
-    required = ("id", "title", "repository", "branch", "source_path", "target_path")
+    required = (
+        "id",
+        "title",
+        "repository",
+        "branch",
+        "source_path",
+        "target_path",
+        "entrypoint",
+    )
     for position, entry in enumerate(entries, start=1):
         if not isinstance(entry, dict):
             raise CollectionError(f"Source #{position} must be a YAML mapping.")
@@ -122,6 +133,12 @@ def load_sources(manifest_path: Path) -> list[Source]:
                 ):
                     raise CollectionError(f"Source {source_id} has an invalid navigation {key}.")
 
+        original_source_notice = entry.get("original_source_notice", False)
+        if not isinstance(original_source_notice, bool):
+            raise CollectionError(
+                f"Source {source_id} has an invalid original_source_notice value."
+            )
+
         sources.append(
             Source(
                 id=source_id,
@@ -130,9 +147,11 @@ def load_sources(manifest_path: Path) -> list[Source]:
                 branch=entry["branch"],
                 source_path=entry["source_path"],
                 target_path=target_path,
+                entrypoint=entry["entrypoint"].replace("\\", "/").lstrip("/"),
                 include=tuple(includes),
                 markdown_normalizations=tuple(normalizations),
                 navigation=navigation,
+                original_source_notice=original_source_notice,
             )
         )
         seen_ids.add(source_id)
@@ -222,6 +241,23 @@ def normalise_markdown(content: str, normalizations: tuple[str, ...]) -> str:
     return "".join(result)
 
 
+def original_source_notice(source: Source) -> str:
+    """Create an optional, portal-level note without changing source content."""
+    source_path = source.source_path.strip("/.")
+    original_path = "/".join(
+        part for part in (source_path, source.entrypoint.lstrip("/")) if part
+    )
+    url = f"https://github.com/{source.repository}/blob/{source.branch}/{original_path}"
+    return (
+        '!!! info "Original source"\n'
+        '    This page was extracted from the '
+        f'<a href="{escape(url, quote=True)}" target="_blank" rel="noopener noreferrer">'
+        "original repository</a>. Some links in this document may point to files "
+        "that are not included in this portal. Consult the original repository for "
+        "the complete source material.\n\n"
+    )
+
+
 def collect_source(source: Source, checkout: Path, output_root: Path) -> int:
     source_root = (checkout / source.source_path).resolve()
     assert_within(source_root, checkout, f"source_path for {source.id}")
@@ -242,16 +278,20 @@ def collect_source(source: Source, checkout: Path, output_root: Path) -> int:
         destination = destination_root / relative_path
         assert_within(destination, output_root, f"File destination for {source.id}")
         destination.parent.mkdir(parents=True, exist_ok=True)
-        if source_file.suffix.lower() == ".md" and source.markdown_normalizations:
+        if source_file.suffix.lower() == ".md" and (
+            source.markdown_normalizations
+            or (source.original_source_notice and relative_path.as_posix() == source.entrypoint)
+        ):
             try:
                 content = source_file.read_text(encoding="utf-8")
             except UnicodeDecodeError as error:
                 raise CollectionError(
                     f"Cannot normalize non-UTF-8 Markdown file: {source_file}"
                 ) from error
-            destination.write_text(
-                normalise_markdown(content, source.markdown_normalizations), encoding="utf-8"
-            )
+            content = normalise_markdown(content, source.markdown_normalizations)
+            if source.original_source_notice and relative_path.as_posix() == source.entrypoint:
+                content = original_source_notice(source) + content
+            destination.write_text(content, encoding="utf-8")
         else:
             shutil.copy2(source_file, destination)
     return len(files)
