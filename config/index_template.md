@@ -1,4 +1,4 @@
-# ECHOES Technical Documentation
+# Consolidated Technical Documentation
 
 This portal consolidates the technical documentation maintained by various ECHOES technical
 WPs in their various GitHub repositories.

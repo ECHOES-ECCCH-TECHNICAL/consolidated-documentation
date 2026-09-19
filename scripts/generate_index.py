@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from html import escape
 from pathlib import Path
 from typing import Any
 
@@ -81,7 +82,9 @@ def source_repository_links(sources: list[dict[str, Any]]) -> str:
                 f"Source #{position} is missing repository-link fields: {', '.join(missing)}."
             )
         links.append(
-            f"    - [{source['title']}](https://github.com/{source['repository']})"
+            "    - "
+            f'<a href="https://github.com/{escape(source["repository"], quote=True)}" '
+            f'target="_blank" rel="noopener noreferrer">{escape(source["title"])}</a>'
         )
     return "\n".join(links)
 
