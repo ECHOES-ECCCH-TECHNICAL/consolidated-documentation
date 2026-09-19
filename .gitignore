@@ -1,0 +1,26 @@
+# Python bytecode and tooling caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments and packaging artefacts
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+
+# Documentation collection and MkDocs build artefacts
+.work/
+build/
+docs/generated/
+docs/includes/glossary.md
+docs/index.md
+mkdocs.yml
+zensical.yml
+site/
+site-zensical/
+.build-check-hdto/

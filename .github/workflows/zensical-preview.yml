@@ -1,0 +1,47 @@
+name: Build Zensical preview
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out portal repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-zensical.txt
+
+      - name: Install Zensical dependencies
+        run: python -m pip install --requirement requirements-zensical.txt
+
+      - name: Collect source documentation
+        run: python scripts/collect_docs.py
+
+      - name: Generate glossary abbreviations
+        run: python scripts/generate_glossary_abbreviations.py
+
+      - name: Generate portal pages and Zensical configuration
+        run: |
+          python scripts/generate_index.py
+          python scripts/generate_mkdocs_config.py --template config/zensical_template.yml --output zensical.yml --builder-name Zensical
+
+      - name: Build Zensical site
+        run: zensical build --config-file zensical.yml
+
+      - name: Upload Zensical preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zensical-preview
+          path: site-zensical/
+          retention-days: 7

@@ -1,0 +1,71 @@
+# Source repositories for the unified consolidated documentation portal.
+# Each target_path is relative to the generated documentation tree.
+
+sources:
+  - id: wp3-eitf
+    title: EITF Integration
+    description: ECHOES Integration Task Force (EITF) Wiki. Guidance and working practices for integrating ECHOES adopter resources with the ECCCH infrastructure.
+    repository: ECHOES-ECCCH-TECHNICAL/integration-task-force
+    branch: main
+    source_path: .
+    target_path: wp3/eitf
+    entrypoint: README.md
+    include:
+      - README.md
+
+  - id: wp6-engineering-handbook
+    title: Interoperability guidelines
+    description: Technical guidance on interoperability, data standards, federation, software lifecycle, security and validation.
+    repository: ECHOES-ECCCH-TECHNICAL/internal-documentation
+    branch: main
+    source_path: docs
+    target_path: wp6/engineering-handbook
+    entrypoint: index.md
+    include:
+      - "**"
+    navigation:
+      strategy: filesystem
+      root: engineering-handbook
+
+  - id: hdto
+    title: Heritage Digital Twin Ontology
+    description: Heritage Digital Twin Ontology (HDTO) ontology specifications, RDF implementation, released documentation and supporting resources.
+    repository: ECHOES-ECCCH/HDTO-Heritage-Digital-Twin-Ontology
+    branch: main
+    source_path: .
+    target_path: hdto
+    entrypoint: README.md
+    include:
+      - README.md
+      - html/**
+    static_pages:
+      - title: HDTO ontology specification v1.1
+        path: html/HDT_v1.1.html
+    markdown_normalizations:
+      - blank_line_before_unordered_lists
+
+  - id: kbms
+    title: KBMS
+    description: Knowledge Base Management System (KBMS). REST API for querying, publishing and editing semantic data across a federated network of triplestores.
+    repository: ECHOES-ECCCH/knowledge-base-management-system
+    branch: main
+    source_path: .
+    target_path: kbms
+    entrypoint: README.md
+    include:
+      - README.md
+
+  - id: wp9-cloud-assessment-framework
+    title: Assessment Framework
+    description: Guidance on ECCCH components, resource categories, evaluation dimensions and assessment tools that support the ECHOES Cloud Assessment Framework (CAF).
+    repository: ECHOES-ECCCH-TECHNICAL/cloud-assessment-framework
+    branch: main
+    source_path: docs
+    target_path: wp9/cloud-assessment-framework
+    entrypoint: index.md
+    include:
+      - "**"
+    navigation:
+      strategy: source_mkdocs
+      path: mkdocs.yml
+    site_url: https://echoes-eccch-technical.github.io/cloud-assessment-framework/

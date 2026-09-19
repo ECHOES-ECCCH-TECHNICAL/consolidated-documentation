@@ -1,0 +1,3 @@
+# Experimental Zensical build. The MkDocs stack remains in requirements.txt.
+zensical
+PyYAML>=6,<7

@@ -1,0 +1,66 @@
+site_name: ECHOES Technical Documentation
+site_description: Unified technical documentation for the ECHOES ECCCH project
+site_url: https://echoes-eccch-technical.github.io/consolidated-documentation/
+use_directory_urls: false
+site_dir: site-zensical
+
+extra_javascript:
+  - https://unpkg.com/mermaid@10.9.1/dist/mermaid.min.js
+
+extra_css:
+  - stylesheets/portal.css
+
+theme:
+  variant: modern
+  language: en
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.path
+    - navigation.top
+    - navigation.expand
+    - navigation.instant
+    - content.code.annotate
+    - content.code.copy
+    - content.tooltips
+    - search.highlight
+    - search.suggest
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.snippets:
+      base_path:
+        - docs
+      auto_append:
+        - includes/glossary.md
+  - abbr
+
+watch:
+  - docs/includes
