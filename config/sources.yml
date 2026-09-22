@@ -73,3 +73,87 @@ sources:
       strategy: source_mkdocs
       path: mkdocs.yml
     site_url: https://echoes-eccch-technical.github.io/cloud-assessment-framework/
+
+  - id: d3-1-integration-strategy
+    title: D3.1
+    description: "Deliverable D3.1: Integration Strategy for datasets, tools and workflows with potential for reuse in ECHOES."
+    repository: ECHOES-ECCCH-TECHNICAL/technical-deliverables
+    branch: main
+    source_path: deliverables/D3.1
+    target_path: deliverables/d3-1
+    entrypoint: output.md
+    include:
+      - output.md
+      - media/**
+
+  - id: d3-2-integration-roadmap
+    title: D3.2 
+    description: "Deliverable D3.2: Integration Roadmap."
+    repository: ECHOES-ECCCH-TECHNICAL/technical-deliverables
+    branch: main
+    source_path: deliverables/D3.2
+    target_path: deliverables/d3-2
+    entrypoint: output.md
+    include:
+      - output.md
+      - media/**
+
+  - id: d6-1-data-strategy
+    title: D6.1 
+    description: "Deliverable D6.1: Data Strategy for the CH Knowledge Base."
+    repository: ECHOES-ECCCH-TECHNICAL/technical-deliverables
+    branch: main
+    source_path: deliverables/D6.1
+    target_path: deliverables/d6-1
+    entrypoint: output.md
+    include:
+      - output.md
+      - media/**
+
+  - id: d6-2-interoperability
+    title: D6.2 
+    description: "Deliverable D6.2: Interoperability Requirements and Guidelines."
+    repository: ECHOES-ECCCH-TECHNICAL/technical-deliverables
+    branch: main
+    source_path: deliverables/D6.2
+    target_path: deliverables/d6-2
+    entrypoint: output.md
+    include:
+      - output.md
+      - media/**
+
+  - id: d6-3-cloud-architecture
+    title: D6.3
+    description: "Deliverable D6.3: Architecture for Data and Cloud Components."
+    repository: ECHOES-ECCCH-TECHNICAL/technical-deliverables
+    branch: main
+    source_path: deliverables/D6.3
+    target_path: deliverables/d6-3
+    entrypoint: output.md
+    include:
+      - output.md
+      - media/**
+
+  - id: d7-1-digital-commons
+    title: D7.1
+    description: "Deliverable D7.1: The Digital Commons."
+    repository: ECHOES-ECCCH-TECHNICAL/technical-deliverables
+    branch: main
+    source_path: deliverables/D7.1
+    target_path: deliverables/d7-1
+    entrypoint: output.md
+    include:
+      - output.md
+      - media/**
+
+  - id: d8-1-vertical-applications
+    title: D8.1
+    description: "Deliverable D8.1: Concepts for Vertical Applications."
+    repository: ECHOES-ECCCH-TECHNICAL/technical-deliverables
+    branch: main
+    source_path: deliverables/D8.1
+    target_path: deliverables/d8-1
+    entrypoint: output.md
+    include:
+      - output.md
+      - media/**
