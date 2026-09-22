@@ -157,3 +157,16 @@ sources:
     include:
       - output.md
       - media/**
+
+  - id: d9-1-evaluation-framework
+    title: D9.1
+    description: "Deliverable D9.1: Evaluation Framework."
+    repository: ECHOES-ECCCH-TECHNICAL/technical-deliverables
+    branch: main
+    source_path: deliverables/D9.1
+    target_path: deliverables/d9-1
+    entrypoint: output.md
+    include:
+      - output.md
+      - media/**
+      
