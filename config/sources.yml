@@ -14,7 +14,7 @@ sources:
       - README.md
 
   - id: wp6-engineering-handbook
-    title: Interoperability guidelines
+    title: Interop. guidelines
     description: Technical guidance on interoperability, data standards, federation, software lifecycle, security and validation.
     repository: ECHOES-ECCCH-TECHNICAL/internal-documentation
     branch: main
@@ -28,7 +28,7 @@ sources:
       root: engineering-handbook
 
   - id: hdto
-    title: Heritage Digital Twin Ontology
+    title: HDT Ontology
     description: Heritage Digital Twin Ontology (HDTO) ontology specifications, RDF implementation, released documentation and supporting resources.
     repository: ECHOES-ECCCH/HDTO-Heritage-Digital-Twin-Ontology
     branch: main
@@ -169,4 +169,3 @@ sources:
     include:
       - output.md
       - media/**
-      
